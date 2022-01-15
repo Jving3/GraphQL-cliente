@@ -4,20 +4,22 @@ import {
   BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 
-const OBTENER_PERSONAS = gql`
- query getPersonas{
-   getPersonas {
-     id
-     nombre
-     apellido
-   }
- }
+
+const OBTENER_PRODUCCION = gql`
+query getProducciones {
+  getProducciones {
+    id
+    estacion
+    tipo
+    cantidad
+  }
+}
 `;
 
 
 function App() {
   
-  const { data, loading, error } = useQuery(OBTENER_PERSONAS);
+  const { data, loading, error } = useQuery(OBTENER_PRODUCCION);
 
   
   console.log(loading)
@@ -25,11 +27,52 @@ function App() {
 
   if (loading) return 'Cargando..';
 
-  console.log(data.getPersonas)
+  console.log(data.getProducciones)
 
-  const {getPersonas} = data;
-  console.log(getPersonas);
+  const {getProducciones} = data;
+  
+  // Total Picking y Putaway
 
+  const arreglo_pick = getProducciones.filter(item => item.tipo.includes('picking'));
+  console.log(arreglo_pick);
+  const picking = arreglo_pick.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(picking);
+
+  const arreglo_put = getProducciones.filter(item => item.tipo.includes('put'));
+  console.log(arreglo_put);
+  const putaway = arreglo_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(putaway);
+
+  // Ordenado de estaciones
+
+  const arreglo_estacion_uno = getProducciones.filter(item => item.estacion === 1);
+  console.log(arreglo_estacion_uno);
+
+  const port_uno = arreglo_estacion_uno.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_uno);
+
+  const arreglo_estacion_dos = getProducciones.filter(item => item.estacion === 2);
+  console.log(arreglo_estacion_dos);
+
+  const port_dos = arreglo_estacion_dos.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_dos);
+
+  const arreglo_estacion_tres = getProducciones.filter(item => item.estacion === 3);
+  console.log(arreglo_estacion_tres);
+
+  const port_tres = arreglo_estacion_tres.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_tres)
+
+  //Eliminar objetos repetidos en un array
+
+
+  // Armado del arreglo final
+  
+  
+  
+
+
+  
   return (
     <Fragment>
       <h1>Desde la App</h1>
@@ -38,7 +81,7 @@ function App() {
         className='mt-10'
             width={600}
             height={500}
-            data={getPersonas}
+            data={getProducciones}
             margin={{
                 top: 5,
                 right: 30,
@@ -47,12 +90,12 @@ function App() {
             }}
             >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="nombre" />
+            <XAxis dataKey="estaciones" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="id" fill="#3182ce" />
-            <Bar dataKey="apellido" fill="#82ca9d" />
+            <Bar dataKey="cantidad" fill="#3182ce" />
+            <Bar dataKey="tipo" fill="#82ca9d" />
         </BarChart>
     </Fragment>
   );
