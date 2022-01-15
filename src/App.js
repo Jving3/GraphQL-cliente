@@ -86,7 +86,6 @@ function App() {
   const port_tres_put = arreglo_estacion_tres_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
   console.log(port_tres_put) 
 
-  //Eliminar objetos repetidos en un array
 
 
   // Armado del arreglo final
@@ -138,8 +137,8 @@ function App() {
       <div>
         <ul>
           <li>Linea 1 PICK: {port_uno_pick} | Linea 1 PUT: {port_uno_put}</li>
-          <li>Linea 2: {port_dos_pick} | Linea 2 PUT: {port_dos_put}</li>
-          <li>Linea 3: {port_tres_pick} | Liena 3 PUT: {port_tres_put}</li>
+          <li>Linea 2 PICK: {port_dos_pick} | Linea 2 PUT: {port_dos_put}</li>
+          <li>Linea 3 PICK: {port_tres_pick} | Liena 3 PUT: {port_tres_put}</li>
         </ul>
       </div>
       
