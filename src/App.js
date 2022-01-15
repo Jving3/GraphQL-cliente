@@ -20,7 +20,6 @@ query getProducciones {
 function App() {
   
   const { data, loading, error } = useQuery(OBTENER_PRODUCCION);
-
   
   console.log(loading)
   console.log(error)
@@ -44,44 +43,111 @@ function App() {
   console.log(putaway);
 
   // Ordenado de estaciones
+  // Estacion 1 Picking
+  const arreglo_estacion_uno_pick = arreglo_pick.filter(item => item.estacion === 1);
+  console.log(arreglo_estacion_uno_pick);
 
-  const arreglo_estacion_uno = getProducciones.filter(item => item.estacion === 1);
-  console.log(arreglo_estacion_uno);
+  const port_uno_pick = arreglo_estacion_uno_pick.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_uno_pick);
 
-  const port_uno = arreglo_estacion_uno.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
-  console.log(port_uno);
+  // Estacion 1 Putaway
+  const arreglo_estacion_uno_put = arreglo_put.filter(item => item.estacion === 1);
+  console.log(arreglo_estacion_uno_put);
 
-  const arreglo_estacion_dos = getProducciones.filter(item => item.estacion === 2);
-  console.log(arreglo_estacion_dos);
+  const port_uno_put = arreglo_estacion_uno_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_uno_put);
 
-  const port_dos = arreglo_estacion_dos.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
-  console.log(port_dos);
+  // Estacion 2 Picking
+  const arreglo_estacion_dos_pick = arreglo_pick.filter(item => item.estacion === 2);
+  console.log(arreglo_estacion_dos_pick);
 
-  const arreglo_estacion_tres = getProducciones.filter(item => item.estacion === 3);
-  console.log(arreglo_estacion_tres);
+  const port_dos_pick = arreglo_estacion_dos_pick.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_dos_pick);
 
-  const port_tres = arreglo_estacion_tres.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
-  console.log(port_tres)
+  // Estacion 2 Putaway
+  const arreglo_estacion_dos_put = arreglo_put.filter(item => item.estacion === 2);
+  console.log(arreglo_estacion_dos_put);
+
+  const port_dos_put = arreglo_estacion_dos_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_dos_put);
+
+
+  // Estacion 3 Picking
+  const arreglo_estacion_tres_pick = arreglo_pick.filter(item => item.estacion === 3);
+  console.log(arreglo_estacion_tres_pick);
+
+  const port_tres_pick = arreglo_estacion_tres_pick.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_tres_pick)
+
+  // Estacion 3 Putaway
+  const arreglo_estacion_tres_put = arreglo_put.filter(item => item.estacion === 3);
+  console.log(arreglo_estacion_tres_put);
+
+  const port_tres_put = arreglo_estacion_tres_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+  console.log(port_tres_put) 
 
   //Eliminar objetos repetidos en un array
 
 
   // Armado del arreglo final
+  var Array1 = [];
+  arreglo_estacion_uno_pick.map( (elemento) => {
+    return Array1.push(elemento.estacion, port_uno_pick, port_uno_put)
+  });
+  const ArraySuma1 = new Set(Array1);
+  let result1 = [...ArraySuma1];
+  const obj1 = Object.assign({}, result1)
+  console.log(obj1);
+
+  var Array2 = [];
+  arreglo_estacion_dos_pick.map( (elemento) => {
+    return Array2.push(elemento.estacion, port_dos_pick, port_dos_put)
+  });
+  const ArraySuma2 = new Set(Array2);
+  let result2 = [...ArraySuma2];
+  const obj2 = Object.assign({}, result2)
+  console.log(obj2);
+
+  var Array3 = [];
+  arreglo_estacion_tres_pick.map( (elemento) => {
+    return Array3.push(elemento.estacion, port_tres_pick, port_tres_put)
+  });
+  const ArraySuma3 = new Set(Array3);
+  let result3 = [...ArraySuma3];
+  const obj3 = Object.assign({}, result3)
+  console.log(obj3);
   
-  
+
+  const datosfinales = [];
+  datosfinales.push(obj1, obj2, obj3)
+  console.log(datosfinales);
+
+
+
   
 
 
   
   return (
     <Fragment>
-      <h1>Desde la App</h1>
-
-      <BarChart
+      <div>
+          <h1>PRODUCCIÓN FORUS BEE</h1>
+          <p>Total Picking: {picking}</p>
+          <p>Total Putaway: {putaway}</p>
+      </div>
+      <div>
+        <ul>
+          <li>Linea 1 PICK: {port_uno_pick} | Linea 1 PUT: {port_uno_put}</li>
+          <li>Linea 2: {port_dos_pick} | Linea 2 PUT: {port_dos_put}</li>
+          <li>Linea 3: {port_tres_pick} | Liena 3 PUT: {port_tres_put}</li>
+        </ul>
+      </div>
+      
+       <BarChart
         className='mt-10'
             width={600}
             height={500}
-            data={getProducciones}
+            data={datosfinales}
             margin={{
                 top: 5,
                 right: 30,
@@ -90,13 +156,14 @@ function App() {
             }}
             >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="estaciones" />
+            <XAxis dataKey="0" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="cantidad" fill="#3182ce" />
-            <Bar dataKey="tipo" fill="#82ca9d" />
-        </BarChart>
+            <Bar dataKey="1" fill="#3182ce" />
+            <Bar dataKey="2" fill="#82ca9d" />
+        </BarChart> 
+      
     </Fragment>
   );
 }
@@ -148,5 +215,7 @@ export default App;
 //  .then(res => {
 //    console.log(res.data)
 //  });
+
+
 
 
