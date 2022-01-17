@@ -213,28 +213,28 @@ aside  {
   margin: 0 auto;
 }
 
-.tarea {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-start;
-  background-color: var(--gris1);  
-  padding: .5rem 2rem;
-  align-items: center;
-  margin-bottom: 1rem;
-  border-radius: .5rem;
 
+
+.question {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 900px;
+  height: 400px;
 }
 
-.operacion {
+
+
+.produccion-total {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start; 
-  margin-top: 4rem;
+  align-items: center; 
+  margin-top: 2rem;
   margin-bottom: 1rem;
   margin-right: 20rem;
   gap: 5rem;
 }
-.operacion p {
+.produccion-total p {
   font-family: var(--headingFont);
   font-size: 3rem;
   font-weight: lighter;
@@ -243,13 +243,54 @@ aside  {
   color: var(--gris2);
 }
 
-.listado ul li {
+.tarea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--gris1);  
+  padding: .5rem 2rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-radius: .5rem;
+}
+
+
+.produccion-dia {
+  display: flex;
+  justify-content: center;
+  width: 50rem;
+  height: 400px;
+  margin-bottom: 1rem;
+  margin-left: 5rem;
+}
+
+.produccion-dia ul li {
   font-family: var(--headingFont);
   font-size: 2rem;
+  font-weight: lighter;
   margin: 0 0 4rem 0;
   text-align: center;
   color: var(--gris2);
-  
+}
+
+.torta {
+  display: flex;
+  justify-content: center;
+  width: 50rem;
+  height: 100px;
+  margin-bottom: 1rem;
+  margin-left: 5rem;
+  background-color: black;
+}
+
+.dia {
+  display: flex;
+  justify-content: center;
+  width: 50rem;
+  height: 100px;
+  margin-bottom: 1rem;
+  margin-left: 5rem;
+  background-color: black;
 }
 
 .sombra {
@@ -407,4 +448,19 @@ aside  {
 .alerta-error {
   background-color: rgb(230, 78, 78);
   color: var(--blanco);
+}
+
+.question-container {
+  width: 95%;
+  height: 90%;
+}
+
+.produccion-total{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start; 
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  margin-right: 10rem;
+  gap: 5rem;
 }

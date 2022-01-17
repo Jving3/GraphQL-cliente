@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react';
 import { gql, useQuery } from '@apollo/client';
-import {BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {BarChart, Bar,  XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
 import Barra from '../layout/Barra';
 import '../../index.css';
+
 
 
 const OBTENER_PRODUCCION = gql`
@@ -130,54 +131,63 @@ const Produccion = () => {
 
 
     return ( 
-    <div className="contenedor-app">
+      <div className="contenedor-app">
             
-      <div className="seccion-principal">
-        <main>
-          <Barra/>
-                  <div className='operacion'>
-                      <p className='nombre-produccion'>Total Picking: {picking}</p>
-                      <p className='nombre-produccion'>Total Putaway: {putaway}</p>
-                  </div>   
-             
-                <div className='tarea'>
-                  
-                  <div className='listado'>
-                      <ul>
-                          <li>PRODUCCION DEL DIA:</li>
-                          <li>Linea 1 = PICK: {port_uno_pick} | PUTAWAY: {port_uno_put}</li>
-                          <li>Linea 2 = PICK: {port_dos_pick} | PUTAWAY: {port_dos_put}</li>
-                          <li>Linea 3 = PICK: {port_tres_pick} | PUTAWAY: {port_tres_put}</li>
-                      </ul>
-                  </div>
+          <div className="seccion-principal">
+                <main>
 
-                  
-                  <div>
-                    <BarChart
-                    className='mt-10'
-                        width={900}
-                        height={400}
-                        data={datosfinales}
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            left: 20,
-                            bottom: 5,
-                        }}
-                        >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="0" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="1" fill="#3182ce" />
-                        <Bar dataKey="2" fill="#82ca9d" />
-                    </BarChart>  
-                  </div>
-                </div>                
-        </main>
+                  <Barra/>
+                        
+                        <div className='produccion-total'>
+                              <p className='nombre-produccion'>Total Picking: {picking}</p>
+                              <p className='nombre-produccion'>Total Putaway: {putaway}</p>
+                        </div>
+                          
+                    
+                      <div className='tarea'> 
+                      
+                              <div className='produccion-dia'>
+                                    <ul>
+                                        <li>PRODUCCION DEL DIA:</li>
+                                        <li>Linea 1 = PICK: {port_uno_pick} | PUTAWAY: {port_uno_put}</li>
+                                        <li>Linea 2 = PICK: {port_dos_pick} | PUTAWAY: {port_dos_put}</li>
+                                        <li>Linea 3 = PICK: {port_tres_pick} | PUTAWAY: {port_tres_put}</li>
+                                    </ul>  
+                              </div>
+                                
+
+                              <div className="question">
+
+                                    <div className="question-container">
+                                      <ResponsiveContainer width={"100%"} height={"100%"}>
+                                      <BarChart
+                                      className='mt-10'
+                                          width={1100}
+                                          height={600}
+                                          data={datosfinales}
+                                          margin={{
+                                              top: 5,
+                                              right: 30,
+                                              left: 20,
+                                              bottom: 5,
+                                          }}
+                                          >
+                                          <CartesianGrid strokeDasharray="3 3" />
+                                          <XAxis dataKey="0" />
+                                          <YAxis />
+                                          <Tooltip />
+                                          <Legend />
+                                          <Bar dataKey="1" fill="#3182ce" />
+                                          <Bar dataKey="2" fill="#82ca9d" />
+                                      </BarChart> 
+                                      </ResponsiveContainer> 
+                                    </div>
+                              </div>
+                      </div>                
+                </main>
+                
+          </div>
       </div>
-    </div>
      );
 }
  
