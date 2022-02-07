@@ -5,7 +5,6 @@ import Barra from '../layout/Barra';
 import '../../index.css';
 
 
-
 const OBTENER_PRODUCCION = gql`
 query getProducciones {
   getProducciones {
@@ -93,6 +92,20 @@ const Produccion = () => {
   
     const port_tres_put = arreglo_estacion_tres_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
     console.log(port_tres_put) 
+
+    // Estacion 4 Picking
+    const arreglo_estacion_cuatro_pick = arreglo_pick.filter(item => item.estacion === 4);
+    console.log(arreglo_estacion_cuatro_pick);
+  
+    const port_cuatro_pick = arreglo_estacion_cuatro_pick.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+    console.log(port_cuatro_pick);
+  
+    // Estacion 1 Putaway
+    const arreglo_estacion_cuatro_put = arreglo_put.filter(item => item.estacion === 4);
+    console.log(arreglo_estacion_cuatro_put);
+  
+    const port_cuatro_put = arreglo_estacion_cuatro_put.map(item => item.cantidad).reduce((prev, curr) => prev + curr, 0);
+    console.log(port_cuatro_put);
   
   
   
@@ -123,10 +136,19 @@ const Produccion = () => {
     let result3 = [...ArraySuma3];
     const obj3 = Object.assign({}, result3)
     console.log(obj3);
+
+    var Array4 = [];
+    arreglo_estacion_cuatro_pick.map( (elemento) => {
+      return Array4.push(elemento.estacion, port_cuatro_pick, port_cuatro_put)
+    });
+    const ArraySuma4 = new Set(Array4);
+    let result4 = [...ArraySuma4];
+    const obj4 = Object.assign({}, result4)
+    console.log(obj4);
     
   
     const datosfinales = [];
-    datosfinales.push(obj1, obj2, obj3)
+    datosfinales.push(obj1, obj2, obj3, obj4)
     console.log(datosfinales); 
 
 
@@ -145,25 +167,26 @@ const Produccion = () => {
                           
                     
                       <div className='tarea'> 
-                      
+
                               <div className='produccion-dia'>
                                     <ul>
                                         <li>PRODUCCION DEL DIA:</li>
                                         <li>Linea 1 = PICK: {port_uno_pick} | PUTAWAY: {port_uno_put}</li>
                                         <li>Linea 2 = PICK: {port_dos_pick} | PUTAWAY: {port_dos_put}</li>
                                         <li>Linea 3 = PICK: {port_tres_pick} | PUTAWAY: {port_tres_put}</li>
+                                        <li>Linea 4 = PICK: {port_cuatro_pick} | PUTAWAY: {port_cuatro_put}</li>
                                     </ul>  
                               </div>
                                 
 
                               <div className="question">
-
+            
                                     <div className="question-container">
                                       <ResponsiveContainer width={"100%"} height={"100%"}>
                                       <BarChart
                                       className='mt-10'
-                                          width={1100}
-                                          height={600}
+                                          width={900}
+                                          height={400}
                                           data={datosfinales}
                                           margin={{
                                               top: 5,
